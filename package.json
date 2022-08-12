@@ -1,20 +1,21 @@
 {
-  "name": "ts-8-ball",
+  "name": "8-ball-pool-rl",
   "version": "1.0.0",
-  "description": "Classic Pool Game TypeScript Adaptation",
+  "description": "8-ball pool with reinforcement learning AI",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bundle-frontend": "cp -r src/frontend/* dist",
+    "bundle-js": "webpack",
+    "build": "npm run bundle-frontend && npm run bundle-js"
   },
-  "author": "Chen Shmilovich",
+  "author": "Matthew Davis",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
+    "@types/lodash": "^4.14.137",
+    "lodash": "^4.17.15",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3",
     "webpack": "^4.29.3",
-    "webpack-cli": "^3.2.3",
-    "@types/lodash": "^4.14.137",
-    "lodash": "^4.17.15"
-  },
-  "dependencies": {}
+    "webpack-cli": "^3.2.3"
+  }
 }
