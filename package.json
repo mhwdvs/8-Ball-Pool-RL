@@ -4,9 +4,10 @@
   "description": "8-ball pool with reinforcement learning AI",
   "main": "index.js",
   "scripts": {
-    "bundle-frontend": "cp -r src/frontend/* dist",
+    "clean": "rm -r dist",
+    "bundle-frontend": "mkdir dist && cp -r src/frontend/* dist",
     "bundle-js": "webpack",
-    "build": "npm run bundle-frontend && npm run bundle-js"
+    "build": "npm run clean; npm run bundle-frontend; npm run bundle-js"
   },
   "author": "Matthew Davis",
   "license": "ISC",
