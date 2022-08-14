@@ -12,6 +12,7 @@
   "author": "Matthew Davis",
   "license": "ISC",
   "dependencies": {
+    "@tensorflow/tfjs": "^3.19.0",
     "@types/lodash": "^4.14.137",
     "lodash": "^4.17.15",
     "ts-loader": "^5.3.3",

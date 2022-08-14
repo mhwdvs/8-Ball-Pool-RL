@@ -22,7 +22,7 @@ export class AITrainer {
     private _bestOpponent: AIOpponent;
     private _soundOnState: boolean;
 
-    public get finishedSession() : boolean {
+    public get finishedSession(): boolean {
         return this._finishedSession;
     }
 
@@ -32,11 +32,11 @@ export class AITrainer {
 
     private placeBallInHand(gameWorld: GameWorld): void {
         debugger;
-        
+
         let marginX = 5;
         let pos = Vector2.copy(GameConfig.cueBallPosition);
 
-        while(!gameWorld.isValidPosToPlaceCueBall(pos)) {
+        while (!gameWorld.isValidPosToPlaceCueBall(pos)) {
             pos.addToX(marginX);
         }
 
@@ -55,13 +55,13 @@ export class AITrainer {
         newPower += (Math.random() * 2 * aiConfig.shotPowerMutationVariance) - aiConfig.shotPowerMutationVariance;
         newPower = newPower < aiConfig.minShotPower ? aiConfig.minShotPower : newPower;
         newPower = newPower > stickConfig.maxPower ? stickConfig.maxPower : newPower;
-    
+
         let newRotation = opponent.rotation;
-    
-        if(opponent.evaluation > 0){
-            newRotation += (1 / opponent.evaluation)*(Math.random() * 2 * Math.PI - Math.PI)
+
+        if (opponent.evaluation > 0) {
+            newRotation += (1 / opponent.evaluation) * (Math.random() * 2 * Math.PI - Math.PI)
         }
-        else{
+        else {
             newRotation = (Math.random() * 2 * Math.PI - Math.PI);
         }
 
@@ -77,14 +77,14 @@ export class AITrainer {
 
     private train(): void {
 
-        if(this._iteration === aiConfig.trainIterations){
+        if (this._iteration === aiConfig.trainIterations) {
             GameConfig.soundOn = this._soundOnState;
             this.playTurn();
             this._finishedSession = true;
             return;
         }
 
-        if(this._gameWorld.isBallsMoving) return;
+        if (this._gameWorld.isBallsMoving) return;
         this._gameWorld.concludeTurn();
 
         this._currentOpponent.evaluation = this._policy.evaluate(this._gameWorld);
@@ -96,7 +96,7 @@ export class AITrainer {
 
         this._opponents.push(current);
 
-        if(current.evaluation > this._bestOpponent.evaluation){
+        if (current.evaluation > this._bestOpponent.evaluation) {
             this._bestOpponent = current;
         }
 
@@ -107,12 +107,12 @@ export class AITrainer {
     }
 
     public buildNewOpponent(): AIOpponent {
-        if(this._iteration % 10 === 0){
+        if (this._iteration % 10 === 0) {
             return this.createRandomOpponent();
         }
         else {
             return this.createMutation(this._bestOpponent);
-        }    
+        }
     }
 
     public playTurn(): void {
@@ -125,7 +125,7 @@ export class AITrainer {
 
     public opponentTrainingLoop(): void {
 
-        while(!this._finishedSession){
+        while (!this._finishedSession) {
             this.train();
             this._gameWorld.update();
         }
@@ -137,7 +137,7 @@ export class AITrainer {
     public startSession(gameWorld: GameWorld): void {
         this._soundOnState = GameConfig.soundOn;
         GameConfig.soundOn = false;
-        if(gameWorld.isBallInHand) {
+        if (gameWorld.isBallInHand) {
             this.placeBallInHand(gameWorld);
         }
         this._initialGameWorld = gameWorld;
